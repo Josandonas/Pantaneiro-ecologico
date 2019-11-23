@@ -59,22 +59,16 @@ app.set('view engine', 'handlebars');
 //mongoose
 //'mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority',{useNewUrlParser:true}
 //"mongodb://localhost/pantaneiroecologico"
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://pantanal:123@cluster0-qysgw.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }).then(() => {
-
-// mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost:27017/pantaneiroecologico', { useNewUrlParser: true }).then(() => {
-//    console.log("conectado ao mongo");
-// }).catch((err) => {
-//    console.log("erro ao se conectar" + err);
-// });
-
-
-//public
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.static(__dirname + '/public'));
 
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost/pantaneiroecologico", { useNewUrlParser: true }).then(() => {
+   console.log("conectado ao mongo");
+}).catch((err) => {
+   console.log("erro ao se conectar" + err);
+});
 
 app.get("/postagem/:slug", (req, res) => {
 
