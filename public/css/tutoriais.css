@@ -1,0 +1,31 @@
+.titulo-tutorial{
+
+  font-size: 26px;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+.subtitulo{
+  font-size: 20px !important; 
+  font-weight: 100 !important;
+}
+.autor{
+  font-size: 80% !important;
+  font-weight: 400 !important;
+}
+
+.data{
+  font-size: 12px !important; 
+  font-weight: 100 !important;
+  justify-content:flex-end !important;
+  display:flex !important;
+}
+.texto-tutorial{
+  font-size: 18px;
+  font-family:Arial, Helvetica, sans-serif;
+  text-align: justify;
+}
+.descriNoticias{
+  font-size: 18px;
+  font-family:Arial, Helvetica, sans-serif;
+  text-align: justify;
+}

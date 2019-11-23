@@ -1,0 +1,58 @@
+<head>
+  <link rel="stylesheet" href="../css/tutoriais.css">
+</head>
+<style>
+  .doze {
+    max-width: 100%;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .um {
+    max-width: 100%;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }
+</style>
+
+<h2>Noticias</h2>
+  {{#each noticias}}
+      <div class="card mb-2" style="max-width: 80rem;">
+        <div class="card-header">
+          <h4 class="text-center">{{titulo}}</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6 text-center">
+              <a href="/homeNoticias/{{id}}"><img src="../upload{{imagem}}" class="doze"></a>
+            </div>
+            <div class="col-6">
+              <h5>Descrição:</h5>
+              <br>
+              <p class="descriNoticias">{{descricao}}<small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6 text-center">
+              <a href="/homeNoticias/{{id}}"><button class="btn btn-lg btn-success justify-content-xl-end">
+                Ver mais
+              </button></a>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          <blockquote class="blockquote mb-0">
+            <footer class="autor" class="blockquote-footer">Autor: {{autor}}</footer>
+          </blockquote>
+          <div class="data" class="d-flex justify-content-end">Data de Publicação: {{data}}</div>
+        </div>
+      </div>
+  {{else}}
+<center>
+  <p>Nenhuma noticia Registrada</p>
+  {{/each}}
+</center>
+

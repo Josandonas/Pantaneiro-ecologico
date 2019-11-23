@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+    <head>
+        <title>Pantaneiro Ecológico</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"> 
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                text-justify:distribute-all-lines;
+                margin: 0;
+                padding: 0;
+                height: 100px;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: black;
+                text-align: left;
+                background-color: white;
+                overflow-x: hidden;
+            }
+        </style>       
+    </head>
+    <body>
+        {{>_navbar}}
+        <br>
+        <div class="container">    
+            {{>_msg}}
+            {{{body}}}
+        </div>  
+        <br>
+        <br>
+        {{>_footer}}
+    </body>
+
+<script src="https://static.landbot.io/landbot-widget/landbot-widget-1.0.0.js"></script>
+<script>
+    var myLandbot = new LandbotLivechat({
+        index: 'https://landbot.io/u/H-310381-OGAULYIU73CCXTVJ/index.html',
+    });
+</script>
+<script src="https://static.landbot.io/landbot-widget/landbot-widget-1.0.0.js"></script>
+<script>
+    var myLandbot = new LandbotLivechat({
+        index: 'https://landbot.io/u/H-310381-OGAULYIU73CCXTVJ/index.html',
+    });
+    </script>
+    <script>
+        myLandbot.on('landbot-load', function () {
+            myLandbot.sendProactive({
+                "message": "Olá! Eu estou aqui para te ajudar!",
+                "author": "Chatbot",
+                "avatar": "https://storage.googleapis.com/media.helloumi.com/82352/channels/LIGUFXLJZI5S8WASBBOG0UYOWAT19WOB.svg",
+                "extra": {
+                    "hide_textbox": true
+                }
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.js"></script>
+</html>

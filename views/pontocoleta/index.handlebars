@@ -1,0 +1,60 @@
+
+<head>
+ <link rel="stylesheet" href="../css/estilo.css">
+ </head>
+
+
+<div class="divlateral">
+
+<h2>Pontos de Coleta:</h2>
+<hr>
+
+
+
+{{#each pontocoleta}}
+
+<div class="card mt-4 " style="width: 37rem;">
+
+    <div class="card-body">
+
+        <h4 class="ponto-coleta-titulo">{{nome}}</h4>
+        <small class="ponto-coleta-texto"> Rua: {{rua}}<small>
+        <small class="ponto-coleta-texto">, n° {{numero}}</small><br>
+        <small class="ponto-coleta-texto">{{horarioAtendimento}}</small><br>
+        
+          <small class="ponto-coleta-texto">{{itens}}</small>
+ 
+      
+        
+
+    </div>
+
+
+
+</div>
+
+
+
+{{else}}
+ <h4 class="mt-3"> Nenhum ponto de coleta registrado</h4>
+{{/each}}
+
+ </div>
+
+ <div class="diva">
+
+   <div class="conteudo">
+
+              <h4>Categorias: </h4>
+
+              <select  class="custom-select" style="width: 25rem;">
+                {{#each categorias}}
+               <option onclick="location.href='/categorias/{{slug}}'"> <h5>{{nome}}</h5> </option> 
+
+                {{else}}
+                <option value="0">Nenhuma Categoria Registrada</option>
+                {{/each}}
+
+            </select>
+  </div>
+
