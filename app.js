@@ -61,10 +61,13 @@ app.set('view engine', 'handlebars');
 //"mongodb://localhost/pantaneiroecologico"
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://pantanal:123@cluster0-qysgw.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }).then(() => {
-   console.log("conectado ao mongo");
-}).catch((err) => {
-   console.log("erro ao se conectar" + err);
-});
+
+// mongoose.Promise = global.Promise;
+// mongoose.connect('mongodb://localhost:27017/pantaneiroecologico', { useNewUrlParser: true }).then(() => {
+//    console.log("conectado ao mongo");
+// }).catch((err) => {
+//    console.log("erro ao se conectar" + err);
+// });
 
 
 //public
@@ -573,10 +576,10 @@ app.post('/produto/nova', (req, res) => {
 
   
     if (err) {
-    res.redirect('admin/noticias');
+    res.redirect('admin/produto');
      return;
   } else {
-     res.redirect('/noticias');
+     res.redirect('/produtos');
   }
 });
 
@@ -927,7 +930,7 @@ app.post('/tutoriais/nova', (req, res) => {
                         err = true;
                      });
                   })
-               }); 
+           }); 
    
 }else if(!video){
 
@@ -998,10 +1001,10 @@ app.post('/tutoriais/nova', (req, res) => {
 
 
   if (err) {
-  res.redirect('admin/noticias');
+  res.redirect('admin/tutorial');
    return;
 } else {
-   res.redirect('/noticias');
+   res.redirect('/tutorial');
 }
 });
 /* FIM TUTORIAL */
