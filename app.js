@@ -60,7 +60,7 @@ app.set('view engine', 'handlebars');
 //'mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority',{useNewUrlParser:true}
 //"mongodb://localhost/pantaneiroecologico"
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://sandoninhas:123@entao-efazj.gcp.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }).then(() => {
+mongoose.connect('mongodb+srv://pantanal:123@cluster0-qysgw.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }).then(() => {
    console.log("conectado ao mongo");
 }).catch((err) => {
    console.log("erro ao se conectar" + err);
@@ -1035,7 +1035,7 @@ app.post('/tutoriais/nova', (req, res) => {
 app.use('/admin', admin);
 
 //outros
-const porta = 8089;
+const porta = process.env.Port||8089;
 
 //em formato de arrow function
 app.listen(porta, () => {
