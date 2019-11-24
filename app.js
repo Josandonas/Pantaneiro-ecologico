@@ -4,30 +4,32 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const bodyParser = require("body-parser");
 const app = express();
-const admin = require("./routes/admin");
+const admin = require("./routes/routes");
 const path = require("path");
 const mongoose = require('mongoose');
 const session = require("express-session");
 const flash = require("connect-flash");
 const fileUpload = require("express-fileupload");
 
-require("./modelo/Postagem");
+require("./model/Postagem");
 const Postagem = mongoose.model("postagens");
 
-require("./modelo/Categoria");
+require("./model/Categoria");
 const Categoria = mongoose.model("categorias");
 
-require("./modelo/PontoColeta");
+require("./model/PontoColeta");
 const PontoColeta = mongoose.model("pontocoleta");
 
-require("./modelo/Noticias");
+require("./model/Noticias");
 const Noticias = mongoose.model("noticias");
 
-require("./modelo/Tutorial");
+require("./model/Tutorial");
 const Tutorial = mongoose.model("Tutorial");
 
-require("./modelo/Produto");//produto
+require("./model/Produto");//produto
+
 const Produto = mongoose.model("produto");//produto
+
 const Sobre = require("./views/sobre");
 
 //configuracoes
@@ -71,120 +73,46 @@ mongoose.connect("mongodb://localhost/pantaneiroecologico", { useNewUrlParser: t
 });
 
 app.get("/postagem/:slug", (req, res) => {
-
    Postagem.findOne({ slug: req.params.slug }).then((postagem) => {
       if (postagem) {
          res.render("postagem/index", { postagem: postagem });
-
       } else {
-
          req.flash("error_msg", "Esta postagem nao existe");
          res.redirect("/");
-
       }
-
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve um erro interno");
       res.redirect("/");
-
    });
-
 });
 
 
 app.get("/categorias", (req, res) => {
-    
-
    Categoria.find().then((categorias) => {
-
       res.render("categorias/index", { categorias: categorias });
-
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve um erro interno ao listar as categorias");
       res.redirect("/");
-
-
    });
-
-    
-
 });
-
-/*
-app.get("/categorias/:slug", (req, res) => {
-
-   Categoria.findOne({ slug: req.params.slug }).then((categoria) => {
-
-      if (categoria) {
-
-         Postagem.find({ categoria: categoria._id }).then((postagens) => {
-
-            res.render("categorias/postagens", { postagens: postagens, categoria: categoria })
-
-         }).catch((err) => {
-
-            req.flash("error_msg", "Houve um erro ao listar os posts");
-            res.redirect("/");
-
-         });
-
-
-      } else {
-
-         req.flash("error_msg", "Esta categoria nao existe");
-         res.redirect("/");
-
-      }
-
-   }).catch((err) => {
-
-      req.flash("error_msg", "Houve um erro interno ao carregar a pagina desta categoria");
-      res.redirect("/");
-
-   });
-
-
-});*/
-
-
 // esse eh do ponto de coleta
 app.get("/categorias/:slug", (req, res) => {
-
    Categoria.findOne({ slug: req.params.slug }).then((categoria) => {
-
       if (categoria) {
-
          PontoColeta.find({ categoria: categoria._id }).then((pontocoleta) => {
-            
             res.render("categorias/pontocoleta", { pontocoleta: pontocoleta, categoria: categoria });
-
          }).catch((err) => {
-
             req.flash("error_msg", "Houve um erro ao listar os posts");
             res.redirect("/");
-
          });
-
-
       } else {
-
          req.flash("error_msg", "Esta categoria nao existe");
          res.redirect("/");
-
       }
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve um erro interno ao carregar a pagina desta categoria");
       res.redirect("/");
-
    });
-
-
 });
 
 app.get("/", (req, res) => {
@@ -192,12 +120,10 @@ app.get("/", (req, res) => {
    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
       res.render("index", { noticias: noticias });
    }).catch((err) => {
-      req.flash("error_msg", "Houve um erro ao listar as categorias");
+      req.flash("error_msg", "Houve um erro ao listar as Noticias");
       res.redirect("/");
    });
 });
-
-
 
 app.get("/tutorial", (req, res) => {
    //lista as categorias
@@ -208,56 +134,48 @@ app.get("/tutorial", (req, res) => {
       res.redirect("/");
    });
 });
+
 app.get("/pontocoletas", (req, res) => {
    //lista as categorias
-   
-   
-   
    PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
-       
        Categoria.find().then((categorias) => { 
-       
       res.render("pontocoleta/index", {categorias: categorias, pontocoleta: pontocoleta });
    }).catch((err) => {
-
       req.flash("error_msg", "Houve um erro ao listar as categorias");
-      res.redirect("/admin/pontocoleta");
+      res.redirect("controller/pontocoleta");
     });
           
      }).catch((err) => {
 
     req.flash("error_msg", "Houve um erro ao carregar um formulario de edicao");
-    res.redirect("/admin/pontocoleta");
+    res.redirect("/controller/controllerPonto/pontocoleta");
 
   });
 });
 
 app.get("/404", (req, res) => {
-
    res.send("erro 404!");
-
 });
-
 
 // ***********************  Produtos ********************************//
 
 app.get("/produto", (req, res) => {
    //lista dos produto
    Produto.find().sort({ date: 'desc' }).then((produto) => {
-      res.render("admin/produto", { produto : produto });
+      res.render("controller/controllerProdutos/produto", { produto : produto });
    }).catch((err) => {
       req.flash("error_msg", "Houve Erro");
-      res.redirect("/admin");
+      res.redirect("/");
    });
 });
 
 app.get("/produtos", (req, res) => {
    //lista dos produto /produto
    Produto.find().sort({ date: 'desc' }).then((produto) => {
-      res.render("admin/produto", { produto : produto });
+      res.render("controller/controllerProdutos/produto", { produto : produto });
    }).catch((err) => {
       req.flash("error_msg", "Houve Erro");
-      res.redirect("/admin");
+      res.redirect("/");
    });
 });
 
@@ -279,28 +197,22 @@ app.get("/404", (req, res) => {
 app.get("/noticias", (req, res) => {
    //lista as noticias /noticias
    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
-      res.render("admin/noticias", { noticias: noticias });
+      res.render("controller/controllerNoticias/noticias", { noticias: noticias });
    }).catch((err) => {
       req.flash("error_msg", "Houve");
-      res.redirect("/admin");
+      res.redirect("/");
    });
 });
 
 app.get("/noticias", (req, res) => {
    //lista as noticias /noticias
    Noticias.find().sort({ date: 'asc' }).then((noticias) => {
-      res.render("admin/noticias", { noticias: noticias });
+      res.render("controller/controllerNoticias/noticias", { noticias: noticias });
    }).catch((err) => {
       req.flash("error_msg", "Houve");
-      res.redirect("/admin");
+      res.redirect("/");
    });
 });
-
-
-
-
-
-
 
 app.get("/homeNoticias/:id", (req, res) => {
    Noticias.findOne({ _id: req.params.id }).then((noticias) => {
@@ -361,13 +273,9 @@ app.get("/homeProduto/:id", (req, res) => {
 
 // ******************************************************//
 
-
-
-
 app.post('/produto/nova', (req, res) => {
   // Pega entrada de imagem e video e audio
   const {imagem} = req.files;
-
   const {audio} = req.files;
   const {video} = req.files;
   //  pasta raiz
@@ -375,209 +283,145 @@ app.post('/produto/nova', (req, res) => {
   // Verifica erro
   let err = false;
   // Copia a imagem
-  
+   if(!imagem && !video && !audio){
+      Produto.create({
+         ...req.body,
+         imagem: null,
+         video: null,
+         audio: null
+      }, 
+      (error, Produto) => {
+         err = true;
+      });
 
-
-
-
-
-  if(!imagem && !video && !audio){
-
-        Produto.create({
-           ...req.body,
-           imagem: null,
-           video: null,
-           audio: null
-           }, (error, Produto) => {
-           err = true;
-           
-        
-   
+   }else if(!imagem && !video){
+   //copia o aduio para a pasta  
+   audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+      if (auerror) {
+            err = true;
+            return;
+      }
+         //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+         Produtos.create({
+            ...req.body,
+            imagem: null,
+            video: null,
+            audio: `/audio/${audio.name}`
+         }, 
+         (error, Produtos) => {
+            err = true;
          });
-
-        }else if(!imagem && !video){
-                
-                                // Copia o vídeo
-                             
-                                   //copia o aduio para a pasta  
-                                   audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                                      if (auerror) {
-                                            err = true;
-                                            return;
-                                      }
-                                         //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                                         Produtos.create({
-                                            ...req.body,
-                                            imagem: null,
-                                            video: null,
-                                            audio: `/audio/${audio.name}`
-                                            }, (error, Produtos) => {
-                                            err = true;
-                                            
-                                         
-                                        });
-        
-                             });
-
-
-
-
-
-
-           }else if(!video && !audio){
-
-                        
-                 imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                   if (ierror) {
-                    err = true;
-                      return;
+   });
+   }else if(!video && !audio){
+               imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+                  if (ierror) {
+                     err = true;
+                     return;
                    }
-        
                    Produto.create({
                        ...req.body,
                        imagem: `/imagens/${imagem.name}`,
                        video: null,
                        audio: null
-                       }, (error, Produto) => {
-                       err = true;
-                              
-                    
-                    });
-        
-                 });
-                       
-                 
-
-
-
-
-           }else if(!imagem && !audio){
-
-                       
-              video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-                 if (verror) {
-                    err = true;
-                    return;
-                 }   
-                    Produto.create({
-                       ...req.body,
-                       imagem: null,
-                       video: `/video/${video.name}`,
-                       audio: null
-                    }, (error, Produto) => {
-                       err = true;
-                       
-                    
-                 });
-
-              });
-                                
-
-
-           }else if(!imagem){
-     
-     
-     
-            video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-              if (verror) {
-                       err = true;
-                       return;
-                    }
-                    //copia o aduio para a pasta  
-                    audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                       if (auerror) {
-                          err = true;
-                          return;
-                       }
-                       //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                       Produto.create({
-                          ...req.body,
-                       imagem: null,
-                          video: `/video/${video.name}`,
-                          audio: `/audio/${audio.name}`
-                       }, (error,Produto) => {
-                          err = true;
-                       });
-                    })
-                 }); 
-     
+                       }, 
+                     (error, Produto) => {
+                     err = true;
+                     });
+               });
+   }else if(!imagem && !audio){
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }   
+         Produto.create({
+            ...req.body,
+            imagem: null,
+            video: `/video/${video.name}`,
+            audio: null
+         },
+         (error, Produto) => {
+                  err = true;
+         });
+      });
+   }else if(!imagem){
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }
+         //copia o aduio para a pasta  
+         audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+            if (auerror) {
+               err = true;
+               return;
+            }
+            //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+            Produto.create({
+               ...req.body,
+            imagem: null,
+               video: `/video/${video.name}`,
+               audio: `/audio/${audio.name}`
+            }, 
+            (error,Produto) => {
+               err = true;
+            });
+         })
+      }); 
   }else if(!video){
-
-
-                    imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                          if (ierror) {
-                             err = true;
-                             return;
-                          }
-                          
-                          // Copia o vídeo
-                       
-                             //copia o aduio para a pasta  
-                       audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                                if (auerror) {
-                                      err = true;
-                                      return;
-                                }
-                                   //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                                   Produto.create({
-                                      ...req.body,
-                                      imagem: `/imagens/${imagem.name}`,
-                                      video: null,
-                                      audio: `/audio/${audio.name}`
-                                      }, (error, Produto) => {
-                                      err = true;
-                                      
-                                   
-                                  });
-                                 
-
-                       });
-                    });
-
+      imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+         if (ierror) {
+            err = true;
+            return;
+         }             
+         //copia o aduio para a pasta  
+         audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+            if (auerror) {
+                  err = true;
+                  return;
+            }
+                        //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+            Produto.create({
+               ...req.body,
+               imagem: `/imagens/${imagem.name}`,
+               video: null,
+               audio: `/audio/${audio.name}`
+               }, 
+               (error, Produto) => {
+                  err = true;
+               });
+         });
+      });
   }else if(!audio){
-
-                       imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                          if (ierror) {
-                             err = true;
-                             return;
-                          }
-
-                             video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-                                if (verror) {
-                                   err = true;
-                                   return;
-                                }   
-                                Produto.create({
-                                      ...req.body,
-                                      imagem: `/imagens/${imagem.name}`,
-                                      video: `/video/${video.name}`,
-                                      audio: null
-                                   }, (error, Produto ) => {
-                                      err = true;
-                                      
-                                   
-                                });
-
-                             });
-                       })
-                       
-                       
-
-                       
-                    }
-                                       
-
-
-  
-    if (err) {
-    res.redirect('admin/produto');
-     return;
+      imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+         if (ierror) {
+            err = true;
+            return;
+         }
+         video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+            if (verror) {
+               err = true;
+               return;
+            }   
+            Produto.create({
+               ...req.body,
+               imagem: `/imagens/${imagem.name}`,
+               video: `/video/${video.name}`,
+               audio: null
+               }, 
+               (error, Produto ) => {
+                  err = true;                    
+               });
+         });
+      })                 
+   }
+   if (err) {
+      res.redirect('controller/controllerProdutos/produtos');
+      return;
   } else {
      res.redirect('/produtos');
   }
 });
-
-
 app.post('/noticias/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
    const {imagem} = req.files;
@@ -589,14 +433,7 @@ app.post('/noticias/nova', (req, res) => {
    // Verifica erro
    let err = false;
    // Copia a imagem
-   
-
-
-
-
-
    if(!imagem && !video && !audio){
-
          Noticias.create({
             ...req.body,
             imagem: null,
@@ -604,186 +441,126 @@ app.post('/noticias/nova', (req, res) => {
             audio: null
             }, (error, Noticias) => {
             err = true;
-            
-         
-    
           });
-
-         }else if(!imagem && !video){
-                 
-                                 // Copia o vídeo
-                              
-                                    //copia o aduio para a pasta  
-                                    audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                                       if (auerror) {
-                                             err = true;
-                                             return;
-                                       }
-                                          //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                                          Noticias.create({
-                                             ...req.body,
-                                             imagem: null,
-                                             video: null,
-                                             audio: `/audio/${audio.name}`
-                                             }, (error, Noticias) => {
-                                             err = true;
-                                             
-                                          
-                                         });
+   }else if(!imagem && !video){
+      audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+      if (auerror) {
+            err = true;
+            return;
+      }
+      //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+      Noticias.create({
+         ...req.body,
+         imagem: null,
+         video: null,
+         audio: `/audio/${audio.name}`
+         }, (error, Noticias) => {
+         err = true;
+         });
          
-                              });
-
-
-
-
-
-
-            }else if(!video && !audio){
-
-                         
-                  imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                    if (ierror) {
-                     err = true;
-                       return;
-                    }
-         
-                    Noticias.create({
-                        ...req.body,
-                        imagem: `/imagens/${imagem.name}`,
-                        video: null,
-                        audio: null
-                        }, (error, Noticias) => {
-                        err = true;
-                               
-                     
-                     });
-         
-                  });
-                        
-                  
-
-
-
-
-            }else if(!imagem && !audio){
-
-                        
-               video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-                  if (verror) {
-                     err = true;
-                     return;
-                  }   
-                     Noticias.create({
-                        ...req.body,
-                        imagem: null,
-                        video: `/video/${video.name}`,
-                        audio: null
-                     }, (error, Noticias) => {
-                        err = true;
-                        
-                     
-                  });
-
-               });
-                                 
-
-
-            }else if(!imagem){
-      
-      
-      
-             video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-               if (verror) {
-                        err = true;
-                        return;
-                     }
-                     //copia o aduio para a pasta  
-                     audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                        if (auerror) {
-                           err = true;
-                           return;
-                        }
-                        //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                        Noticias.create({
-                           ...req.body,
-                        imagem: null,
-                           video: `/video/${video.name}`,
-                           audio: `/audio/${audio.name}`
-                        }, (error, Noticias) => {
-                           err = true;
-                        });
-                     })
-                  }); 
-      
+   });
+   }else if(!video && !audio){
+      imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+         if (ierror) {
+         err = true;
+            return;
+         }
+         Noticias.create({
+            ...req.body,
+            imagem: `/imagens/${imagem.name}`,
+            video: null,
+            audio: null
+            }, 
+            (error, Noticias) => {
+               err = true;
+            });
+      });
+   }else if(!imagem && !audio){
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }   
+         Noticias.create({
+            ...req.body,
+            imagem: null,
+            video: `/video/${video.name}`,
+            audio: null
+         }, 
+         (error, Noticias) => {
+            err = true;
+         });
+      });
+   }else if(!imagem){
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }
+      //copia o aduio para a pasta  
+      audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+         if (auerror) {
+            err = true;
+            return;
+         }
+            //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+         Noticias.create({
+            ...req.body,
+            imagem: null,
+               video: `/video/${video.name}`,
+               audio: `/audio/${audio.name}`
+            },
+             (error, Noticias) => {
+               err = true;
+            });
+         })
+      }); 
    }else if(!video){
-
-
-                     imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                           if (ierror) {
-                              err = true;
-                              return;
-                           }
-                           
-                           // Copia o vídeo
-                        
-                              //copia o aduio para a pasta  
-                        audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                                 if (auerror) {
-                                       err = true;
-                                       return;
-                                 }
-                                    //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                                    Noticias.create({
-                                       ...req.body,
-                                       imagem: `/imagens/${imagem.name}`,
-                                       video: null,
-                                       audio: `/audio/${audio.name}`
-                                       }, (error, Noticias) => {
-                                       err = true;
-                                       
-                                    
-                                   });
-                                  
-
-                        });
-                     });
-
+      imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+         if (ierror) {
+            err = true;
+            return;
+         }
+         audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+            if (auerror) {
+                  err = true;
+                  return;
+            }
+            //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+            Noticias.create({
+               ...req.body,
+               imagem: `/imagens/${imagem.name}`,
+               video: null,
+               audio: `/audio/${audio.name}`
+               }, (error, Noticias) => {
+               err = true;
+            });
+         });
+   });
    }else if(!audio){
-
-                        imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                           if (ierror) {
-                              err = true;
-                              return;
-                           }
-
-                              video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-                                 if (verror) {
-                                    err = true;
-                                    return;
-                                 }   
-                                    Noticias.create({
-                                       ...req.body,
-                                       imagem: `/imagens/${imagem.name}`,
-                                       video: `/video/${video.name}`,
-                                       audio: null
-                                    }, (error, Noticias) => {
-                                       err = true;
-                                       
-                                    
-                                 });
-
-                              });
-                        })
-                        
-                        
-
-                        
-                     }
-                                        
-
-
-   
-     if (err) {
+      imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+         if (ierror) {
+            err = true;
+            return;
+         }
+         video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+            if (verror) {
+               err = true;
+               return;
+            }   
+            Noticias.create({
+               ...req.body,
+               imagem: `/imagens/${imagem.name}`,
+               video: `/video/${video.name}`,
+               audio: null
+            }, 
+            (error, Noticias) => {
+               err = true;
+            });
+         });
+      })
+   }
+   if (err) {
      res.redirect('admin/noticias');
       return;
    } else {
@@ -801,201 +578,133 @@ app.post('/tutoriais/nova', (req, res) => {
    // Verifica erro
    let err = false;
    // Copia a imagem
-
-
-
-
-
    if(!imagem && !video && !audio){
-
       Tutorial.create({
          ...req.body,
          imagem: null,
          video: null,
          audio: null
          }, (error, Tutorial) => {
+         err = true; 
+      });
+   }else if(!imagem && !video){
+      audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+         if (auerror) {
+            err = true;
+            return;
+         }
+      Tutorial.create({
+         ...req.body,
+         imagem: null,
+         video: null,
+         audio: `/audio/${audio.name}`
+         },
+         (error, Tutorial) => {
+            err = true;
+         });
+      });
+   }else if(!video && !audio){
+      imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+         if (ierror) {
          err = true;
-         
-      
- 
-       });
-
-      }else if(!imagem && !video){
-              
-                              // Copia o vídeo
-                           
-                                 //copia o aduio para a pasta  
-                                 audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                                    if (auerror) {
-                                          err = true;
-                                          return;
-                                    }
-                                       //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                                       Tutorial.create({
-                                          ...req.body,
-                                          imagem: null,
-                                          video: null,
-                                          audio: `/audio/${audio.name}`
-                                          }, (error, Tutorial) => {
-                                          err = true;
-                                          
-                                       
-                                      });
-      
-                           });
-
-
-
-
-
-
-         }else if(!video && !audio){
-
-                      
-               imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                 if (ierror) {
-                  err = true;
-                    return;
-                 }
-      
-                 Tutorial.create({
-                     ...req.body,
-                     imagem: `/imagens/${imagem.name}`,
-                     video: null,
-                     audio: null
-                     }, (error, Tutorial) => {
-                     err = true;
-                            
-                  
-                  });
-      
-               });
-                     
-               
-
-
-
-
-         }else if(!imagem && !audio){
-
-                     
-            video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-               if (verror) {
-                  err = true;
-                  return;
-               }   
-               Tutorial.create({
-                     ...req.body,
-                     imagem: null,
-                     video: `/video/${video.name}`,
-                     audio: null
-                  }, (error, Tutorial) => {
-                     err = true;
-                     
-                  
-               });
-
-            });
-                              
-
-
-         }else if(!imagem){
-   
-   
-   
-          video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-            if (verror) {
-                     err = true;
-                     return;
-                  }
-                  //copia o aduio para a pasta  
-                  audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                     if (auerror) {
-                        err = true;
-                        return;
-                     }
-                     //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                     Tutorial.create({
-                        ...req.body,
-                     imagem: null,
-                        video: `/video/${video.name}`,
-                        audio: `/audio/${audio.name}`
-                     }, (error, Tutorial) => {
-                        err = true;
-                     });
-                  })
-           }); 
-   
+            return;
+         }
+      Tutorial.create({
+         ...req.body,
+         imagem: `/imagens/${imagem.name}`,
+         video: null,
+         audio: null
+         },
+         (error, Tutorial) => {
+            err = true;                 
+         });      
+      });
+   }else if(!imagem && !audio){
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }   
+         Tutorial.create({
+            ...req.body,
+            imagem: null,
+            video: `/video/${video.name}`,
+            audio: null
+         },
+         (error, Tutorial) => {
+            err = true;
+         });
+      });
+   }else if(!imagem){
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+      if (verror) {
+         err = true;
+         return;
+      }
+      //copia o aduio para a pasta  
+      audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+         if (auerror) {
+            err = true;
+            return;
+      }
+//cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+      Tutorial.create({
+         ...req.body,
+      imagem: null,
+         video: `/video/${video.name}`,
+         audio: `/audio/${audio.name}`
+      }, (error, Tutorial) => {
+         err = true;
+      });
+   })
+});    
 }else if(!video){
-
-
-                  imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                        if (ierror) {
-                           err = true;
-                           return;
-                        }
-                        
-                        // Copia o vídeo
-                     
-                           //copia o aduio para a pasta  
-                     audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
-                              if (auerror) {
-                                    err = true;
-                                    return;
-                              }
-                                 //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                                 Tutorial.create({
-                                    ...req.body,
-                                    imagem: `/imagens/${imagem.name}`,
-                                    video: null,
-                                    audio: `/audio/${audio.name}`
-                                    }, (error, Tutorial) => {
-                                    err = true;
-                                    
-                                 
-                                });
-                               
-
-                     });
-                  });
+   imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+      if (ierror) {
+         err = true;
+         return;
+      }
+   audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+      if (auerror) {
+            err = true;
+            return;
+      }
+      //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+      Tutorial.create({
+         ...req.body,
+         imagem: `/imagens/${imagem.name}`,
+         video: null,
+         audio: `/audio/${audio.name}`
+         }, (error, Tutorial) => {
+         err = true;                           
+      });
+    });
+});
 
 }else if(!audio){
-
-                     imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
-                        if (ierror) {
-                           err = true;
-                           return;
-                        }
-
-                           video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-                              if (verror) {
-                                 err = true;
-                                 return;
-                              }   
-                              Tutorial.create({
-                                    ...req.body,
-                                    imagem: `/imagens/${imagem.name}`,
-                                    video: `/video/${video.name}`,
-                                    audio: null
-                                 }, (error, Tutorial) => {
-                                    err = true;
-                                    
-                                 
-                              });
-
-                           });
-                     })
-                     
-                     
-
-                     
-                  }
-                                     
-
-
-
-  if (err) {
-  res.redirect('admin/tutorial');
+   imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+      if (ierror) {
+         err = true;
+         return;
+      }
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }   
+         Tutorial.create({
+               ...req.body,
+               imagem: `/imagens/${imagem.name}`,
+               video: `/video/${video.name}`,
+               audio: null
+            }, (error, Tutorial) => {
+               err = true;
+         });
+      });
+   })
+}
+ if (err) {
+  res.redirect('controller/controllerTutorial/tutorial');
    return;
 } else {
    res.redirect('/tutorial');
