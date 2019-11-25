@@ -1,18 +1,18 @@
 const express = require("express");
 const rota = express.Router();
 const mongoose = require("mongoose");
-require("../modelo/Categoria");
+require("../model/Categoria");
 const Categoria = mongoose.model("categorias");
-require('../modelo/Postagem');
+require('../model/Postagem');
 const Postagem = mongoose.model("postagens");
-require("../modelo/PontoColeta");
+require("../model/PontoColeta");
 const PontoColeta = mongoose.model("pontocoleta");
-require("../modelo/Noticias");
+require("../model/Noticias");
 const Noticias = mongoose.model("noticias");
-require("../modelo/Produto");
+require("../model/Produto");
 const Produto = mongoose.model("produto");
 
-require("../modelo/Tutorial");
+require("../model/Tutorial");
 const Tutorial = mongoose.model("Tutorial");
 
 rota.get('/', (req, res) => {

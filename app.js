@@ -11,22 +11,22 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const fileUpload = require("express-fileupload");
 
-require("./modelo/Postagem");
+require("./model/Postagem");
 const Postagem = mongoose.model("postagens");
 
-require("./modelo/Categoria");
+require("./model/Categoria");
 const Categoria = mongoose.model("categorias");
 
-require("./modelo/PontoColeta");
+require("./model/PontoColeta");
 const PontoColeta = mongoose.model("pontocoleta");
 
-require("./modelo/Noticias");
+require("./model/Noticias");
 const Noticias = mongoose.model("noticias");
 
-require("./modelo/Tutorial");
+require("./model/Tutorial");
 const Tutorial = mongoose.model("Tutorial");
 
-require("./modelo/Produto");//produto
+require("./model/Produto");//produto
 const Produto = mongoose.model("produto");//produto
 const Sobre = require("./views/sobre");
 
