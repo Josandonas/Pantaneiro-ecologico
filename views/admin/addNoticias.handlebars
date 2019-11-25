@@ -1,0 +1,47 @@
+{{#each erros}}
+<div class="alert alert-danger">{{texto}}</div>
+
+{{else}}
+{{/each}}
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h4>Nova Noticia</h4>
+
+          <form action="/noticias/nova" method="POST" enctype="multipart/form-data">
+        
+
+            <label for="titulo">Titulo</label>
+            <input type="text" name="titulo" class="form-control" >
+
+             <label for="autor">Autor</label>
+            <input type="text" name="autor" class="form-control" >
+
+
+
+            <label for="descricao">Descrição</label>
+            <input type="text" name="descricao" class="form-control" >
+
+            <label for="conteudo">Conteudo</label>
+            <textarea name="conteudo" class="form-control" ></textarea>
+                <div class="form-group mt-3">
+                      imagem
+                    <input type="file" name="imagem" class="form-control-file">
+                </div>
+
+                 <div class="form-group mt-3">
+                      video
+                    <input type="file" name="video" class="form-control-file">
+                </div>
+                  <div class="form-group mt-3">
+                      audio
+                    <input type="file" name="audio" class="form-control-file">
+                </div>
+           <button class="btn btn-success mt-4" type="submit">Criar Noticia</button>
+        </form>
+    </div>
+</div>
+       
+

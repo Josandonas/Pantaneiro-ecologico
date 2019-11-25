@@ -1,0 +1,55 @@
+
+{{#each erros}}
+
+ <div class="alert alert-danger">{{texto}}</div>
+
+{{else}}
+
+{{/each}}
+
+<h3>Editar Ponto de coleta:</h3>
+<div class="card">
+
+<div class="card-body">
+
+<form action="/admin/ponto-coleta/edit" method="POST">
+
+ <input type="hidden" name="id" value="{{pontocoleta._id}}">
+
+<label for="nome">Nome do Local: </label>
+<input type="text" id="nome" name="nome" placeholder="Nome" class="form-control" value="{{pontocoleta.nome}}">
+
+<label for="bairro">Bairro: </label>
+<input type="text" name="bairro" placeholder="bairro" class="form-control" value="{{pontocoleta.bairro}}" required>
+
+<label for="rua">Endereço: </label>
+<input type="text" name="rua" placeholder="Rua" class="form-control" value="{{pontocoleta.rua}}" required>
+
+<label for="numero">Numero: </label>
+<input type="number" name="numero" placeholder="numero" class="form-control" value="{{pontocoleta.numero}}" required>
+
+<label for="horarioAtendimento">horario de atendimento: </label>
+<input type="text" name="horarioAtendimento" placeholder="horario de Atendimento" class="form-control" value="{{pontocoleta.horarioAtendimento}}">
+
+
+<label for="numero">Materiais: </label>
+<input type="text" name="itens" placeholder="materiais separado por virgula" class="form-control" value="{{pontocoleta.itens}}" required>
+
+
+ <label for="categoria">Categoria: </label>
+            <select name="categoria" class="custom-select">
+                {{#each categorias}}
+                <option value="{{_id}}">{{nome}}</option>
+
+                {{else}}
+                <option value="0">Nenhuma Categoria Registrada</option>
+                {{/each}}
+
+            </select>
+
+<button type="submit" class="btn btn-success mt-4">Editar Ponto de coleta</button>
+
+</form>
+
+</div>
+</div>
