@@ -27,6 +27,7 @@ const Tutorial = mongoose.model("Tutorial");
 
 require("./model/Produto");//produto
 const Produto = mongoose.model("produto");//produto
+
 const Sobre = require("./views/sobre");
 
 //configuracoes
@@ -161,23 +162,12 @@ app.get("/404", (req, res) => {
 app.get("/produto", (req, res) => {
    //lista dos produto
    Produto.find().sort({ date: 'desc' }).then((produto) => {
-      res.render("admin/produto", { produto: produto });
+      res.render("produto/index", { produto: produto });
    }).catch((err) => {
       req.flash("error_msg", "Houve Erro");
       res.redirect("/admin");
    });
 });
-
-app.get("/produtos", (req, res) => {
-   //lista dos produto /produto
-   Produto.find().sort({ date: 'desc' }).then((produto) => {
-      res.render("admin/produto", { produto: produto });
-   }).catch((err) => {
-      req.flash("error_msg", "Houve Erro");
-      res.redirect("/admin");
-   });
-});
-
 // *******************************************************//
 
 app.get("/sobre", (req, res) => {
@@ -191,7 +181,7 @@ app.get("/404", (req, res) => {
 app.get("/noticias", (req, res) => {
    //lista as noticias /noticias
    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
-      res.render("admin/noticias/index", { noticias: noticias });
+      res.render("noticias/index", { noticias: noticias });
    }).catch((err) => {
       req.flash("error_msg", "Houve");
       res.redirect("/admin");

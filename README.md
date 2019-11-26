@@ -29,8 +29,6 @@
 
 http://localhost:8089/admin/categorias/add -> adiciona categorias de noticias
 
-http://localhost:8089/admin/postagens/add -> adiciona uma postagem/noticia
-
 http://localhost:8089/admin/pontocoleta/add -> adiciona um ponto de coleta
 
 http://localhost:8089/admin/produto/add -> adiciona um produto
