@@ -145,11 +145,11 @@ app.get("/pontocoletas", (req, res) => {
          res.render("pontocoleta/index", { categorias: categorias, pontocoleta: pontocoleta });
       }).catch((err) => {
          req.flash("error_msg", "Houve um erro ao listar as categorias");
-         res.redirect("/admin/pontocoleta");
+         res.redirect("/admin/viewPonto/pontocoleta");
       });
    }).catch((err) => {
       req.flash("error_msg", "Houve um erro ao carregar um formulario de edicao");
-      res.redirect("/admin/pontocoleta");
+      res.redirect("/admin/viewPonto/pontocoleta");
    });
 });
 
@@ -163,7 +163,7 @@ app.get("/404", (req, res) => {
 app.get("/produto", (req, res) => {
    //lista dos produto
    Produto.find().sort({ date: 'desc' }).then((produto) => {
-      res.render("admin/produto", { produto: produto });
+      res.render("admin/viewProduto/produto", { produto: produto });
    }).catch((err) => {
       req.flash("error_msg", "Houve Erro");
       res.redirect("/admin");
@@ -173,7 +173,7 @@ app.get("/produto", (req, res) => {
 app.get("/produtos", (req, res) => {
    //lista dos produto /produto
    Produto.find().sort({ date: 'desc' }).then((produto) => {
-      res.render("admin/produto", { produto: produto });
+      res.render("admin/viewProduto/produto", { produto: produto });
    }).catch((err) => {
       req.flash("error_msg", "Houve Erro");
       res.redirect("/admin");
@@ -313,7 +313,7 @@ app.post('/produto/nova', (req, res) => {
       });
    }
    if (err) {
-      res.redirect('admin/noticias');
+      res.redirect('admin/viewNoticias/noticias');
       return;
    } else {
       res.redirect('/noticias');
@@ -334,7 +334,7 @@ app.get("/404", (req, res) => {
 app.get("/noticias", (req, res) => {
    //lista as noticias /noticias
    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
-      res.render("admin/noticias", { noticias: noticias });
+      res.render("admin/viewNoticias/noticias", { noticias: noticias });
    }).catch((err) => {
       req.flash("error_msg", "Houve");
       res.redirect("/admin");
@@ -344,7 +344,7 @@ app.get("/noticias", (req, res) => {
 app.get("/noticias", (req, res) => {
    //lista as noticias /noticias
    Noticias.find().sort({ date: 'asc' }).then((noticias) => {
-      res.render("admin/noticias", { noticias: noticias });
+      res.render("admin/viewNoticias/noticias", { noticias: noticias });
    }).catch((err) => {
       req.flash("error_msg", "Houve");
       res.redirect("/admin");
@@ -485,7 +485,7 @@ app.post('/noticias/nova', (req, res) => {
       });
    }
    if (err) {
-      res.redirect('admin/noticias');
+      res.redirect('admin/viewNoticias/noticias');
       return;
    } else {
       res.redirect('/noticias');
@@ -625,7 +625,7 @@ app.post('/tutoriais/nova', (req, res) => {
       });
    }
    if (err) {
-      res.redirect('admin/noticias');
+      res.redirect('admin/viewNoticias/viewNoticias/noticias');
       return;
    } else {
       res.redirect('/noticias');
