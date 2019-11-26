@@ -189,7 +189,7 @@ rota.get("/postagens", (req, res) => {
 
   Postagem.find().populate("categoria").sort({ data: "desc" }).then((postagens) => {
 
-    res.render("admin/postagens", { postagens: postagens });
+    res.render("admin/viewPost/postagens", { postagens: postagens });
 
   }).catch((err) => {
 
@@ -206,7 +206,7 @@ rota.get("/postagens", (req, res) => {
 //adiciona uma postagem
 rota.get("/postagens/add", (req, res) => {
   Categoria.find().then((categorias) => {
-    res.render("admin/addpostagem", { categorias: categorias });
+    res.render("admin/viewPost/addpostagem", { categorias: categorias });
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao carregar o formulario");
     res.redirect("/admin");
@@ -219,7 +219,7 @@ rota.post("/postagens/nova", (req, res) => {
     erros.push({ texto: "categoria invalida, registre uma categoria" });
   }
   if (erros.length > 0) {
-    res.render("admin/addpostagem", { erros: erros });
+    res.render("admin/viewPost/addpostagem", { erros: erros });
   } else {
     const novaPostagem = {
       titulo: req.body.titulo,
@@ -230,10 +230,10 @@ rota.post("/postagens/nova", (req, res) => {
     }
     new Postagem(novaPostagem).save().then(() => {
       req.flash("success_msg", "Postagem criada com sucesso!");
-      res.redirect("/admin/postagens");
+      res.redirect("/admin/viewPost/postagens");
     }).catch((err) => {
       req.flash("error_msg", "houve um erro durante o salvamento da postagem");
-      res.redirect("/admin/postagens");
+      res.redirect("/admin/viewPost/postagens");
     });
   }
 });
@@ -245,19 +245,19 @@ rota.get("/postagens/edit/:id", (req, res) => {
 
     Categoria.find().then((categorias) => {
 
-      res.render("admin/editpostagens", { categorias: categorias, postagem: postagem });
+      res.render("admin/viewPost/editpostagens", { categorias: categorias, postagem: postagem });
 
     }).catch((err) => {
 
       req.flash("error_msg", "Houve um erro ao listar as categorias");
-      res.redirect("/admin/postagens");
+      res.redirect("/admin/viewPost/postagens");
     });
 
 
   }).catch((err) => {
 
     req.flash("error_msg", "Houve um erro ao carregar um formulario de edicao");
-    res.redirect("/admin/postagen")
+    res.redirect("/admin/viewPost/postagens")
 
   });
 
@@ -276,12 +276,12 @@ rota.post("/postagem/edit", (req, res) => {
     postagem.save().then(() => {
 
       req.flash("success_msg", "Postagem editada com sucesso!");
-      res.redirect("/admin/postagens");
+      res.redirect("/admin/viewPost/postagens");
 
     }).catch((err) => {
 
       req.flash("error_msg", "Erro interno");
-      res.redirect("/admin/postagens")
+      res.redirect("/admin/viewPost/postagens")
 
     });
 
@@ -290,7 +290,7 @@ rota.post("/postagem/edit", (req, res) => {
   }).catch((err) => {
 
     req.flash("error_msg", "Houve um erro ao salvar a edicao");
-    res.redirect("/admin/postagens");
+    res.redirect("/admin/viewPost/postagens");
 
 
   });
@@ -305,12 +305,12 @@ rota.get("/postagens/deletar/:id", (req, res) => {
   Postagem.remove({ _id: req.params.id }).then(() => {
 
     req.flash("success_msg", "postagem deletada com sucesso");
-    res.redirect("/admin/postagens");
+    res.redirect("/admin/viewPost/postagens");
 
   }).catch((err) => {
 
     req.flash("error_msg", "Houve um erro interno");
-    res.redirect("/admin/postagens");
+    res.redirect("/admin/viewPost/postagens");
 
   });
 
@@ -768,12 +768,12 @@ rota.post("/produto/nova", (req, res) => {
     };
     new Produto(novoProduto).save().then(() => {
       req.flash("success_msg", "Produto adicionado com sucesso!");
-      res.redirect("/admin/produto");
+      res.redirect("/admin/viewProduto/produto");
 
     }).catch((err) => {
 
       req.flash("error_msg", "houve um erro durante o salvamento do produto");
-      res.redirect("/admin/produto");
+      res.redirect("/admin/viewProduto/produto");
 
     });
 
@@ -788,7 +788,7 @@ rota.get("/produto", (req, res) => {
  // *********************** Lista dos Produtos ********************************
 
   Produto.find().sort({ date: 'desc' }).then((produto) => {
-    res.render("admin/produto", { produto : produto });
+    res.render("admin/viewProduto/produto", { produto : produto });
 
   }).catch((err) => {
 
