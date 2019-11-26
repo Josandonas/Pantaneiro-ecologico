@@ -155,7 +155,7 @@ rota.post("/postagens/nova", (req, res) => {
       descricao: req.body.descricao,
       conteudo: req.body.conteudo,
       categoria: req.body.categoria,
-      slug: req.body.slug
+      slug: req.body.slug,
     }
     new Postagem(novaPostagem).save().then(() => {
       req.flash("success_msg", "Postagem criada com sucesso!");

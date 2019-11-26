@@ -28,7 +28,7 @@
         {{#if noticias.imagem}}
                <div class="col-12 text-center">
                
-                  <img src="../upload{{noticias.imagem}}" class="doze" />
+                  <img src="{{noticias.imagem}}" class="doze" />
 
                </div>
                <br>
@@ -44,7 +44,7 @@
             {{#if noticias.video}}
                <div class="col-12 text-center">
                   <video width="320" height="240" controls>
-                     <source src="../upload{{noticias.video}}" type="video/mp4">
+                     <source src="{{noticias.video}}" type="video/mp4">
                   </video>
                </div>
             {{/if}}
@@ -53,7 +53,7 @@
          {{#if noticias.audio}}
 
             <audio controls>
-               <source src="../upload{{noticias.audio}}" type="audio/mpeg">
+               <source src="{{noticias.audio}}" type="audio/mpeg">
             </audio>
          </div>   
          {{/if}}

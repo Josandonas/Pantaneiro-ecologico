@@ -20,32 +20,32 @@
         <b>
             <h4>{{tutorial.titulo}}</h4>
         </b>
-        <small>Subtitulo: {{tutorial.subtitulo}}</small><br>
+        <small>{{tutorial.subtitulo}}</small><br>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-12 text-center">
                 {{#if tutorial.imagem}}
-                <img src="../uploadTutorial{{tutorial.imagem}}" class="doze" />
+                <img src="{{tutorial.imagem}}" class="doze" />
                 {{/if}}
             </div>
             <br>
             <div class="col-12">
                 <div class="container">
-                    <h6 align="justify" class="text-center"> Conteúdo: {{tutorial.texto}}</h6>
+                    <h6 align="justify" class="text-center">{{tutorial.texto}}</h6>
                 </div>
             </div>
             <div class="col-12 text-center">
                 {{#if tutorial.video}}
                 <video width="320" height="240" controls>
-                    <source src="../uploadTutorial{{tutorial.video}}" type="video/mp4">
+                    <source src="{{tutorial.video}}" type="video/mp4">
                 </video>
                 {{/if}}
             </div>
             <div class="col-12 text-center">
                 {{#if tutorial.audio}}
                 <audio controls>
-                    <source src="../uploadTutorial{{tutorial.audio}}" type="audio/mpeg">
+                    <source src="{{tutorial.audio}}" type="audio/mpeg">
                 </audio>
                 {{/if}}
             </div>
