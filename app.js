@@ -694,7 +694,8 @@ app.get("/homeProduto/:id", (req, res) => {
 app.use('/admin', admin);
 
 //outros
-const porta = process.env.Port || 8089;
+
+const porta = 8089;
 
 //em formato de arrow function
 app.listen(porta, () => {
