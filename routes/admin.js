@@ -655,7 +655,7 @@ rota.get("/tutoriais", (req, res) => {
   //metodo resposanvel pro buscar a data de cada tutorial e coletar todos seus atributos
   Tutorial.find().sort({ date: 'desc' }).then((tutorial) => {
     //pega o arquivo de localizao da pagina de gerenciamento
-    res.render("admin/controllerTutorial/tutoriais", { tutorial: tutorial });
+    res.render("admin/viewTutorial/tutoriais", { tutorial: tutorial });
     //funcao caso der errado
   }).catch((err) => {
     //mensagem de erro caso der muito errado
@@ -667,7 +667,7 @@ rota.get("/tutoriais", (req, res) => {
 //rota responsavel por rendenirizar a pagina de tutoriais add
 rota.get('/tutoriais/add', (req, res) => {
   //res e um metodo responsavel pelo caminho do arquivo que sera rendenerizado 
-  res.render("admin/controllerTutorial/addtutorial");
+  res.render("admin/viewTutorial/addtutorial");
 });
 //rota resposnsavel por receber metodo post
 rota.post("/tutoriais/nova", (req, res) => {
@@ -703,7 +703,7 @@ rota.get("/tutoriais/edit/:id", (req, res) => {
   //metodo responsavel por buscar o id na collection e extrair os dados e rendenerizar no moemnto de editar
   Tutorial.findOne({ _id: req.params.id }).then((tutorial) => {
     //rendeneriza os dados na página de edicao
-    res.render("admin/controllerTutorial/edittutorial", { tutorial: tutorial });
+    res.render("admin/viewTutorial/edittutorial", { tutorial: tutorial });
 //caso der merda
   }).catch((err) => {
     //mesangem de erro caso der ruim

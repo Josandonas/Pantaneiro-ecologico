@@ -780,15 +780,8 @@ app.post('/noticias/nova', (req, res) => {
 
                               });
                         })
-                        
-                        
-
-                        
                      }
                                         
-
-
-   
      if (err) {
      res.redirect('admin/noticias');
       return;
@@ -807,11 +800,6 @@ app.post('/tutoriais/nova', (req, res) => {
    // Verifica erro
    let err = false;
    // Copia a imagem
-
-
-
-
-
    if(!imagem && !video && !audio){
 
       Tutorial.create({
@@ -906,9 +894,6 @@ app.post('/tutoriais/nova', (req, res) => {
 
 
          }else if(!imagem){
-   
-   
-   
           video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
             if (verror) {
                      err = true;
@@ -990,16 +975,9 @@ app.post('/tutoriais/nova', (req, res) => {
                               });
 
                            });
-                     })
-                     
-                     
-
-                     
+                     });  
                   }
                                      
-
-
-
   if (err) {
   res.redirect('admin/tutorial');
    return;
@@ -1009,34 +987,7 @@ app.post('/tutoriais/nova', (req, res) => {
 });
 /* FIM TUTORIAL */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.use('/admin', admin);
-
 //outros
 const porta = process.env.Port||8089;
 
@@ -1044,5 +995,4 @@ const porta = process.env.Port||8089;
 app.listen(porta, () => {
 
  console.log("servidor rodando!");
-
 });
