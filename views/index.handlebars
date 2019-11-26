@@ -39,14 +39,6 @@
 </style>
 <header>
     <img class="displayed " src="../imagens/logo.jpeg" alt="telaprincipal">
-    <ul class="nav margem">
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/noticias"> Noticias</a></li>
-        <li><a href="/tutorial">Tutoriais</a></li>
-        <li><a href="/pontocoletas">Pontos de coleta</a></li>
-        <li><a href="/produtos">Produtos</a></li>
-        <li><a href="/sobre"> Sobre</a></li>
-    </ul>
 </header>
 
 <hr>
@@ -60,15 +52,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
-                                {{#if noticias.imagem}}
                                 <a href="/homeNoticias/{{id}}"><img class="doze" style="max-width: 250px; max-height:250px"
                                         src="../upload{{imagem}}"></a>
-                                {{/if}}
                             </div>
                             <div class="col-6">
                                 <div class="text-center">
-                                    <h5 class="card-title"><b>Titulo: {{titulo}}</b></h5>
-                                    <p class="card-text">Descricao: {{descricao}}</p>
+                                    <h5 class="card-title"><b> {{titulo}}</b></h5>
+                                    <p class="card-text"> {{descricao}}</p>
                                     <a href="/HomeNoticias/{{id}}" <button class="btn btn-success">Leia Mais</button> </a>
                                 </div>
                             </div>

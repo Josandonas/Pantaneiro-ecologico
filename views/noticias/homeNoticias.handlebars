@@ -19,8 +19,7 @@
 <div class="card mt-4">
    <div class="card-header text-center">
       <b><h4>{{noticias.titulo}}</h4></b>
-      <small>descricao: {{noticias.descricao}}</small><br>
-      <small>Autor: {{noticias.autor}}</small><br>
+      <small>{{noticias.descricao}}</small><br>
    </div>
 
    <div class="card-body">
@@ -33,13 +32,11 @@
 
                </div>
                <br>
-        {{else}}
-         <p>sem img</p>
       {{/if}}       
         
          <div class="col-12">
             <div class="container">
-               <h6 align="justify" class="text-center"> Conteúdo: {{noticias.conteudo}}</h6>
+               <h6 align="justify" class="text-center">{{noticias.conteudo}}</h6>
             </div>
          </div>
 
@@ -50,8 +47,6 @@
                      <source src="../upload{{noticias.video}}" type="video/mp4">
                   </video>
                </div>
-                  {{else}}
-                     <p>sem video</p>
             {{/if}}
 
          <div class="col-12 text-center">
@@ -60,9 +55,7 @@
             <audio controls>
                <source src="../upload{{noticias.audio}}" type="audio/mpeg">
             </audio>
-         </div>
-         {{else}}
-         <p>sem audio</p>   
+         </div>   
          {{/if}}
 
 
