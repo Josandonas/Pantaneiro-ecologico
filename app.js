@@ -54,8 +54,7 @@ app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 //mongoose
-//'mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority',{useNewUrlParser:true}
-//"mongodb://localhost/pantaneiroecologico"
+//mongodb+srv://pantanal:123doze@cluster0-neoqm.mongodb.net/test?retryWrites=true&w=majority
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost:27017/pantaneiroecologico', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }).then(() => {
