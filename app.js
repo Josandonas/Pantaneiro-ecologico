@@ -247,7 +247,3 @@ app.listen(porta, () => {
    console.log("servidor rodando!");
 
 });
-
-
-
-
