@@ -21,13 +21,7 @@
         <b>
             <h4>{{produto.titulo}}</h4>
         </b>
-        <small>{{produto.subtitulo}}</small><br>
-        <br>
-        <br>
-        <div class="card-body">
-        <div class="autor" class="blockquote-footer">Escrito por: {{produto.autor}}</div>
-        <div class="data" class="d-flex justify-content-end">Data de Publicação: {{produto.data}}</div>
-        </div>
+        <h5>{{produto.subtitulo}}</h5><br>
     </div>
     <div class="card-body">
         <div class="row">
@@ -55,10 +49,14 @@
             {{#if produto.audio}}
             <div class="col-12 text-center">
                 <iframe width="80%" height="166" src="{{produto.audio}}"></iframe>
-            </div>                
+            </div>
             {{/if}}
         </div>
     </div>
-
+    <div class="card-footer text-muted">
+        <blockquote class="blockquote mb-0">
+            <footer class="autor" class="blockquote-footer">Escrito por: {{produto.autor}}</footer>
+        </blockquote>
+        <div class="data" class="d-flex justify-content-end">Data de Publicação: {{produto.data}}</div>
+    </div>
 </div>
-

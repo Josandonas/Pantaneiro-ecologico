@@ -18,22 +18,24 @@
 
 <div class="card mt-4">
    <div class="card-header text-center">
-      <b><h4>{{noticias.titulo}}</h4></b>
+      <b>
+         <h4>{{noticias.titulo}}</h4>
+      </b>
       <small>{{noticias.descricao}}</small><br>
    </div>
 
    <div class="card-body">
       <div class="row">
-             
-        {{#if noticias.imagem}}
-               <div class="col-12 text-center">
-               
-                  <img src="{{noticias.imagem}}" class="doze" />
 
-               </div>
-               <br>
-      {{/if}}       
-        
+         {{#if noticias.imagem}}
+         <div class="col-12 text-center">
+
+            <img src="{{noticias.imagem}}" class="doze" />
+
+         </div>
+         <br>
+         {{/if}}
+
          <div class="col-12">
             <div class="container">
                <h6 align="justify" class="text-center">{{noticias.conteudo}}</h6>
@@ -41,24 +43,24 @@
          </div>
          <br>
          {{#if noticias.video}}
-            <div class="col-12 text-center">
-               <iframe width="560" height="315"  controls src="{{noticias.video}}"></iframe>
-            </div>
+         <div class="col-12 text-center">
+            <iframe width="560" height="315" controls src="{{noticias.video}}"></iframe>
+         </div>
          {{/if}}
          <br>
-         
+
          {{#if noticias.audio}}
          <div class="col-12 text-center">
             <iframe width="80%" height="166" src="{{noticias.audio}}"></iframe>
          </div>
          {{/if}}
-         
-    </div>
-   <div class="card-footer text-muted">
-      <blockquote class="blockquote mb-0">
-         <footer class="autor" class="blockquote-footer">Autor: {{noticias.autor}}</footer>
-      </blockquote>
-      <div class="data" class="d-flex justify-content-end">Data de Publicação: {{noticias.data}}</div>
+
+      </div>
+      <div class="card-footer text-muted">
+         <blockquote class="blockquote mb-0">
+            <footer class="autor" class="blockquote-footer">Autor: {{noticias.autor}}</footer>
+         </blockquote>
+         <div class="data" class="d-flex justify-content-end">Data de Publicação: {{noticias.data}}</div>
+      </div>
    </div>
 </div>
-

@@ -8,41 +8,29 @@
 </style>
 <h2>NOTICIAS</h2>
 <hr>
-<div class="card-group">
-    <div class="row">
-        {{#each noticias}}
-        <div class="card" style="max-width: 75rem;">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-12">
-                        <b><h3 class="text-center">{{nome}}</h3></b>
-                    </div>
-                    <div class="col-12">
-                        <small>{{descricao}}</small>
-                    </div>
-                </div>
+{{#each noticias}}
+<div class="card mb-4" style="max-width: 80rem;">
+    <div class="card-header">
+        <h4 class="text-center">{{nome}}</h4>
+        <div class="subtitulo">{{descricao}}</div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                {{#if imagem}} <center><img src="{{imagem}}" class="doze" /> </center>{{/if}}
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-6">
-                       {{#if imagem}} <center><img src="{{imagem}}" class="doze" /> </center>{{/if}}
-                    </div>
-                    <div class="col-6">
-                        <h6 align="justify"></h6> {{conteudo}}
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer text-muted">
-                <blockquote class="blockquote mb-0">
-                    <footer class="autor" class="blockquote-footer">Autor: {{autor}}</footer>
-                </blockquote>
-                <div class="data" class="d-flex justify-content-end">Data de Publicação: {{data}}</div>
+            <div class="col-6">
+                <h6 align="justify"></h6> {{conteudo}}
             </div>
         </div>
-        {{else}}
-        <h4 class="mt-3"> Nehuma Noticia registrada </h4>
-        {{/each}}
+    </div>
+    <div class="card-footer text-muted">
+        <blockquote class="blockquote mb-0">
+            <footer class="autor" class="blockquote-footer">Autor: {{autor}}</footer>
+        </blockquote>
+        <div class="data" class="d-flex justify-content-end">Data de Publicação: {{data}}</div>
     </div>
 </div>
-
-        
+{{else}}
+<h4 class="mt-3"> Nehuma Noticia registrada </h4>
+{{/each}}
