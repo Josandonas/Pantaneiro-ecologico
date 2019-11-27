@@ -335,7 +335,7 @@ rota.post("/tutoriais/nova", (req, res) => {
     //mensagem de sucesso caso der certo
     req.flash("success_msg", "Tutorial Criado com Sucesso");
     //redirecionar para area de gernciamento caso for sucessso
-    res.redirect("admin/viewTutorial/tutoriais");
+    res.redirect("/admin/tutoriais");
     //caso erro
   }).catch((err) => {
     //mensagem de erro
