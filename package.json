@@ -4,10 +4,23 @@
   "description": "Um projeto benificente para o meio ambiente",
   "main": "app.js",
   "dependencies": {
+    "connect-flash": "^0.1.1",
+    "express-fileupload": "^1.1.6",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.6"
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.0",
+    "handlebars": "^4.5.3",
+    "mongoose": "^5.7.12"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "connect-flash": "^0.1.1",
+    "express-fileupload": "^1.1.6",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.0",
+    "handlebars": "^4.5.3",
+    "mongoose": "^5.7.12"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start":"node app.js"
