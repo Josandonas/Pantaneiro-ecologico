@@ -282,10 +282,8 @@ rota.post("/noticias/nova", (req, res) => {
       req.flash("success_msg", "noticia adicionada com sucesso!");
       res.redirect("/admin/noticias");
     }).catch((err) => {
-
       req.flash("error_msg", "houve um erro durante o salvamento da noticia");
       res.redirect("/admin/noticias");
-
     });
 });
 
