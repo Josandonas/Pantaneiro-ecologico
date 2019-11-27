@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 
 require("../model/Categoria");
 const Categoria = mongoose.model("categorias");
-require('../model/Postagem');
-const Postagem = mongoose.model("postagens");
 require("../model/PontoColeta");
 const PontoColeta = mongoose.model("pontocoleta");
 require("../model/Noticias");
@@ -59,7 +57,7 @@ rota.post("/categorias/nova", (req, res) => {
     new Categoria(novaCategoria).save().then(() => {
       req.flash("success_msg", "Categoria Criada Com Sucesso");
       //se o cadastro der certo vai ser redirecionado
-      res.redirect("admin/viewCategoria/categorias");
+      res.redirect("admin/categorias");
     }).catch((err) => {
       req.flash("error_msg", "Houve um erro ao salvar a categoria, tente novamente");
       res.redirect("/admin");
@@ -137,69 +135,28 @@ rota.get('/pontocoleta/add', (req, res) => {
 
  // adiciona um ponto de coleta
 rota.post("/pontocoleta/nova", (req, res) => {
-
   var erros = [];
   var resultado;
   var itens;
-  
-  if (req.body.categoria == "0") {
-
-    erros.push({ texto: "categoria invalida, registre uma categoria" });
-
-  }
-
-  if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
-    erros.push({ texto: "Nome Invalido" });
-  }
-
-  if (!req.body.bairro || typeof req.body.bairro == undefined || req.body.bairro == null) {
-
-    erros.push({ texto: "bairro Invalido" });
-  }
-  if (!req.body.rua || typeof req.body.rua == undefined || req.body.rua == null) {
-
-    erros.push({ texto: "rua Invalida" });
-  }
-
-  if (!req.body.numero || typeof req.body.numero == undefined || req.body.numero == null) {
-
-    erros.push({ texto: "numero Invalido" });
-  }
-
-    
-
-
-  if (req.body.nome.length < 5) {
-    erros.push({ texto: "Nome e muito pequeno" });
-  }
-
-  if (erros.length > 0) {
-    res.render("admin/addpontocoleta", { erros: erros });
-
-  } else {
-
     const novoPontoColeta = {
-
       nome: req.body.nome,
       bairro: req.body.bairro,
       rua: req.body.rua,
       numero: req.body.numero,
       horarioAtendimento : req.body.horarioAtendimento,
       categoria: req.body.categoria,
-      
       itens: req.body.itens.split(",")
     };
     new PontoColeta(novoPontoColeta).save().then(() => {
       req.flash("success_msg", "Ponto de coleta Criada Com Sucesso");
       //se o cadastro der certo vai ser redirecionado
-      res.redirect("admin/pontocoleta");
+      res.redirect("/admin/pontocoleta");
 
     }).catch((err) => {
 
       req.flash("error_msg", "Houve um erro ao salvar o Ponto de coleta, tente novamente");
-      res.redirect("/admin");
+      res.redirect("/admin/pontocoleta");
     });
-  }
 });
 
 rota.get("/pontocoleta", (req, res) => {
@@ -208,10 +165,8 @@ rota.get("/pontocoleta", (req, res) => {
     res.render("admin/viewPonto/pontocoleta", { pontocoleta: pontocoleta });
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao listar as categorias");
-    res.redirect("/admin");
+    res.redirect("/admin/pontocoleta");
   });
-
-
 });
 
 
@@ -224,34 +179,23 @@ rota.get("/ponto-coleta/edit/:id", (req, res) => {
 
   }).catch((err) => {
       req.flash("error_msg", "Houve um erro ao listar as categorias");
-      res.redirect("admin/pontocoleta");
+      res.redirect("/admin/pontocoleta");
     });
      }).catch((err) => {
-
     req.flash("error_msg", "Houve um erro ao carregar um formulario de edicao");
-    res.redirect("admin/pontocoleta");
-
+    res.redirect("/admin/pontocoleta");
   });
-  
-  
-   
-  
-
 });
 
 
 rota.post("/ponto-coleta/edit", (req, res) => {
 
   PontoColeta.findOne({ _id: req.body.id }).then((pontocoleta) => {
-
     var erros = [];
-
     if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
       erros.push({ texto: "Nome Invalido" });
     }
-  
     if (!req.body.bairro || typeof req.body.bairro == undefined || req.body.bairro == null) {
-  
       erros.push({ texto: "bairro Invalido" });
     }
     if (!req.body.rua || typeof req.body.rua == undefined || req.body.rua == null) {
@@ -284,17 +228,17 @@ rota.post("/ponto-coleta/edit", (req, res) => {
       pontocoleta.save().then(() => {
 
         req.flash("success_msg", "ponto de coleta Editada com Sucesso");
-        res.redirect("admin/pontocoleta");
+        res.redirect("/admin/viewPonto/pontocoleta");
 
       }).catch((err) => {
 
         req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
-        res.redirect("admin/pontocoleta");
+        res.redirect("/admin/viewPonto/pontocoleta");
       });
     }
   }).catch((err) => {
     req.flash(("error_msg", "Houve um erro ao editar a categoria"));
-    res.redirect("admin/pontocoleta");
+    res.redirect("/admin/viewPonto/pontocoleta");
 
   });
 
@@ -304,34 +248,23 @@ rota.post("/ponto-coleta/edit", (req, res) => {
 
 //metodo para deletar um ponto de coleta
 rota.post("/ponto-coleta/deletar", (req, res) => {
-
-  PontoColeta.remove({ _id: req.body.id }).then(() => {
-
+  PontoColeta.deleteOne({ _id: req.body.id }).then(() => {
     req.flash("success_msg", "Categoria Deletada Com Sucesso!");
-    res.redirect("admin/pontocoleta");
-
+    res.redirect("/admin/pontocoleta");
   }).catch((err) => {
-
     req.flash("error_msg", "houve um erro ao deletar uma categoria");
-    res.redirect("admin/pontocoleta");
-
+    res.redirect("/admin/pontocoleta");
   });
-
-
 });
 
 //adiciona uma postagem
 rota.get("/noticias/add", (req, res) => {
 
   Noticias.find().then((noticias) => {
-
     res.render("admin/viewNoticias/addNoticias", { noticias: noticias });
-
-
   }).catch((err) => {
-
     req.flash("error_msg", "Houve um erro ao carregar o formulario");
-    res.redirect("admin");
+    res.redirect("/admin/noticias");
 
   });
 });
@@ -350,17 +283,14 @@ rota.post("/noticias/nova", (req, res) => {
     };
     new Noticias(novaNoticia).save().then(() => {
       req.flash("success_msg", "noticia adicionada com sucesso!");
-      res.redirect("admin/viewNoticias/noticias");
-
+      res.redirect("/admin/noticias");
     }).catch((err) => {
 
       req.flash("error_msg", "houve um erro durante o salvamento da noticia");
-      res.redirect("admin/viewNoticias/noticias");
+      res.redirect("/admin/noticias");
 
     });
 });
-
-
 
 rota.get("/noticias", (req, res) => {
   //lista as categorias
@@ -368,11 +298,9 @@ rota.get("/noticias", (req, res) => {
     res.render("admin/viewNoticias/noticias", { noticias: noticias });
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao listar as noticias");
-    res.redirect("admin");
+    res.redirect("/admin");
   });
 });
-
-
 
 //*************************** Tutoriais inicializa aqui **************************/
 //resposanvel pela pagina de gerenciaciamento  dos tutoriais

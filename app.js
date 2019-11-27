@@ -10,9 +10,6 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const fileUpload = require("express-fileupload");
 
-require("./model/Postagem");
-const Postagem = mongoose.model("postagens");
-
 require("./model/Categoria");
 const Categoria = mongoose.model("categorias");
 
@@ -70,22 +67,6 @@ mongoose.connect('mongodb://localhost:27017/pantaneiroecologico', { useUnifiedTo
 //public
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(__dirname + '/public'));
-
-
-app.get("/postagem/:slug", (req, res) => {
-   Postagem.findOne({ slug: req.params.slug }).then((postagem) => {
-      if (postagem) {
-         res.render("postagem/index", { postagem: postagem });
-      } else {
-         req.flash("error_msg", "Esta postagem nao existe");
-         res.redirect("/");
-      }
-   }).catch((err) => {
-      req.flash("error_msg", "Houve um erro interno");
-      res.redirect("/");
-   });
-});
-
 
 app.get("/categorias", (req, res) => {
    Categoria.find().then((categorias) => {
@@ -231,10 +212,8 @@ app.get("/homeProduto/:id", (req, res) => {
 // ******************************************************//
 
 app.use('/admin', admin);
-
 //outros
 const porta = process.env.Port || 8089;
-
 //em formato de arrow function
 app.listen(porta, () => {
 
