@@ -90,21 +90,21 @@ rota.post("/categorias/edit", (req, res) => {
       erros.push({ texto: "Nome da categoria e muito pequeno" });
     }
     if (erros.length > 0) {
-      res.render("admin/editcategorias", { categoria: categoria, erros: erros });
+      res.render("admin/viewCategoria/editcategorias", { categoria: categoria, erros: erros });
     } else {
       categoria.nome = req.body.nome;
       categoria.slug = req.body.slug;
       categoria.save().then(() => {
         req.flash("success_msg", "Categoria Editada com Sucesso");
-        res.redirect("/admin/viewCategoria/categorias");
+        res.redirect("/admin/ategorias");
       }).catch((err) => {
         req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
-        res.redirect("/admin/viewCategoria/categorias");
+        res.redirect("/admin/categorias");
       });
     }
   }).catch((err) => {
     req.flash(("error_msg", "Houve um erro ao editar a categoria"));
-    res.redirect("/admin/viewCategoria/categorias");
+    res.redirect("/admin/categorias");
   });
 });
 
@@ -189,7 +189,6 @@ rota.get("/ponto-coleta/edit/:id", (req, res) => {
 
 
 rota.post("/ponto-coleta/edit", (req, res) => {
-
   PontoColeta.findOne({ _id: req.body.id }).then((pontocoleta) => {
     var erros = [];
     if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
@@ -215,7 +214,6 @@ rota.post("/ponto-coleta/edit", (req, res) => {
       res.render("admin/viewPonto/editpontocoleta", { pontocoleta: pontocoleta, erros: erros });
 
     } else {
-
       pontocoleta.nome=req.body.nome;
       pontocoleta.bairro= req.body.bairro;
       pontocoleta.rua= req.body.rua;
@@ -223,22 +221,21 @@ rota.post("/ponto-coleta/edit", (req, res) => {
       pontocoleta.horarioAtendimento = req.body.horarioAtendimento;
       pontocoleta.categoria = req.body.categoria;
       pontocoleta.itens = req.body.itens.split(",");
-       
-
+      
       pontocoleta.save().then(() => {
 
         req.flash("success_msg", "ponto de coleta Editada com Sucesso");
-        res.redirect("/admin/viewPonto/pontocoleta");
+        res.redirect("/admin/pontocoleta");
 
       }).catch((err) => {
 
         req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
-        res.redirect("/admin/viewPonto/pontocoleta");
+        res.redirect("/admin/pontocoleta");
       });
     }
   }).catch((err) => {
     req.flash(("error_msg", "Houve um erro ao editar a categoria"));
-    res.redirect("/admin/viewPonto/pontocoleta");
+    res.redirect("/admin/pontocoleta");
 
   });
 
@@ -314,7 +311,7 @@ rota.get("/tutoriais", (req, res) => {
     //mensagem de erro caso der muito errado
     req.flash("error_msg", "Houve um erro ao listar os Tutoriais");
     //caso der ruim sera direcionado para a oagin
-    res.redirect("admin");
+    res.redirect("/admin");
   });
 });
 //rota responsavel por rendenirizar a pagina de tutoriais add
@@ -346,7 +343,7 @@ rota.post("/tutoriais/nova", (req, res) => {
     //mensagem de erro
     req.flash("error_msg", "Houve um erro ao salvar o tutorial, tente novamente");
     //direcionamento para pagina de gerencimamento
-    res.redirect("admin/viewTutorial/tutoriais");
+    res.redirect("/admin/tutoriais");
   });
 
 });
@@ -362,7 +359,7 @@ rota.get("/tutoriais/edit/:id", (req, res) => {
     //mesangem de erro caso der ruim
     req.flash("error_msg", "O tutorial Nao Existe");
     //redirecionamento para area de gerenciamento
-    res.redirect("admin/tutoriais");
+    res.redirect("/admin/tutoriais");
   });
 });
 
@@ -385,34 +382,34 @@ rota.post("/tutoriais/edit", (req, res) => {
       //mensagem de sucesso
       req.flash("success_msg", "Tutorial Editado com Sucesso");
       //redirecionamento para area de gerenciamento
-      res.redirect("admin/tutoriais");
+      res.redirect("/admin/tutoriais");
       //caso erro
     }).catch((err) => {
       //mesangem de erro
       req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
       //redirecionameneto para area de gerenciamento
-      res.redirect("admin/tutoriais");
+      res.redirect("/admin/tutoriais");
     });
   }).catch((err) => {
     req.flash(("error_msg", "Houve um erro ao editar o tutorial"));
-    res.redirect("admin/tutoriais");
+    res.redirect("/admin/tutoriais");
   });
 });
 
 //apagar o tutorial usando id 
 rota.post("/tutoriais/deletar", (req, res) => {
   //metodo responsavel  pela remoção
-  Tutorial.remove({ _id: req.body.id }).then(() => {
+  Tutorial.deleteOne({ _id: req.body.id }).then(() => {
     //mensagem de sucesso
     req.flash("success_msg", "Tutorial Deletado Com Sucesso!");
     //redirecionanmento apos conclusao de acao
-    res.redirect("admin/tutoriais");
+    res.redirect("/admin/tutoriais");
     //parametro  de erro
   }).catch((err) => {
     //mensagem de erro caso der merda
     req.flash("error_msg", "houve um erro ao deletar o tutorial");
     //redirecionamento para pagina de gerenciamento
-    res.redirect("admin/tutoriais");
+    res.redirect("/admin/tutoriais");
   });
 });
 
@@ -424,7 +421,7 @@ rota.get("/produto/add", (req, res) => {
     res.render("admin/viewProduto/addproduto", { produto : produto });
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao carregar o formulario");
-    res.redirect("admin");
+    res.redirect("/admin");
   });
 });
 
@@ -451,17 +448,12 @@ rota.post("/produto/add", (req, res) => {
     };
     new Produto(novoProduto).save().then(() => {
       req.flash("success_msg", "Produto adicionado com sucesso!");
-      res.redirect("admin/produto");
-
+      res.redirect("/admin/produto");
     }).catch((err) => {
-
       req.flash("error_msg", "houve um erro durante o salvamento do produto");
-      res.redirect("admin/produto");
-
+      res.redirect("/admin/produto");
     });
-
   }
-
 });
 
 
@@ -471,7 +463,7 @@ rota.get("/produto", (req, res) => {
     res.render("admin/viewProduto/produto", { produto : produto });
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao listar os produtos");
-    res.redirect("admin");
+    res.redirect("/admin");
   });
 });
 
