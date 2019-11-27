@@ -35,20 +35,16 @@
                     <h6 align="justify" class="text-center">{{tutorial.texto}}</h6>
                 </div>
             </div>
+            {{#if tutorial.video}}
+                <div class="col-12 text-center">
+                    <iframe width="560" height="315" controls src="{{tutorial.audio}}"></iframe>
+                </div>
+            {{/if}}
+            {{#if tutorial.audio}}
             <div class="col-12 text-center">
-                {{#if tutorial.video}}
-                <video width="320" height="240" controls>
-                    <source src="{{tutorial.video}}" type="video/mp4">
-                </video>
-                {{/if}}
+                <iframe width="80%" height="166" src="{{produto.audio}}"></iframe>
             </div>
-            <div class="col-12 text-center">
-                {{#if tutorial.audio}}
-                <audio controls>
-                    <source src="{{tutorial.audio}}" type="audio/mpeg">
-                </audio>
-                {{/if}}
-            </div>
+            {{/if}}
         </div>
     </div>
     <div class="card-footer text-muted">

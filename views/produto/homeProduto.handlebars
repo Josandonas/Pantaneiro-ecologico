@@ -47,20 +47,16 @@
                     <h6 class="text-center">{{produto.textocom}}</h6>
                 </div>
             </div>
+            {{#if produto.video}}
             <div class="col-12 text-center">
-                {{#if produto.video}}
-                <video width="320" height="240" controls>
-                    <source src="{{produto.video}}" type="video/mp4">
-                </video>
-                {{/if}}
+                <iframe width="560" height="315" controls src="{{produto.video}}"></iframe>
             </div>
+            {{/if}}
+            {{#if produto.audio}}
             <div class="col-12 text-center">
-                {{#if produto.audio}}
-                <audio controls>
-                    <source src="{{produto.audio}}" type="audio/mpeg">
-                </audio>
-                {{/if}}
-            </div>
+                <iframe width="80%" height="166" src="{{produto.audio}}"></iframe>
+            </div>                
+            {{/if}}
         </div>
     </div>
 

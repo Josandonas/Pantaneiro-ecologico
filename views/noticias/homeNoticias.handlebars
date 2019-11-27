@@ -39,25 +39,20 @@
                <h6 align="justify" class="text-center">{{noticias.conteudo}}</h6>
             </div>
          </div>
-
-      
-            {{#if noticias.video}}
-               <div class="col-12 text-center">
-                  <iframe width="560" height="315"  controls src="{{noticias.video}}"></iframe>
-               </div>
-            {{/if}}
-
-         <div class="col-12 text-center">
-         {{#if noticias.audio}}
-
-            <audio controls>
-               <source src="{{noticias.audio}}" type="audio/mpeg">
-            </audio>
-         </div>   
+         <br>
+         {{#if noticias.video}}
+            <div class="col-12 text-center">
+               <iframe width="560" height="315"  controls src="{{noticias.video}}"></iframe>
+            </div>
          {{/if}}
-
-
-      </div>
+         <br>
+         
+         {{#if noticias.audio}}
+         <div class="col-12 text-center">
+            <iframe width="80%" height="166" src="{{noticias.audio}}"></iframe>
+         </div>
+         {{/if}}
+         
     </div>
    <div class="card-footer text-muted">
       <blockquote class="blockquote mb-0">
