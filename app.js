@@ -57,7 +57,7 @@ app.set('view engine', 'handlebars');
 //mongodb+srv://pantanal:123doze@cluster0-neoqm.mongodb.net/test?retryWrites=true&w=majority
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb+srv://pantanal:123doze@cluster0-neoqm.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true,  useUnifiedTopology: true }).then(() => {
+mongoose.connect('mongodb://localhost:27017/pantaneiroecologico', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }).then(() => {
    console.log("conectado ao mongo");
 }).catch((err) => {
    console.log("erro ao se conectar" + err);
