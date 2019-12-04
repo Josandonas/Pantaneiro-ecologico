@@ -79,19 +79,6 @@ rota.get("/categorias/edit/:id", (req, res) => {
 
 rota.post("/categorias/edit", (req, res) => {
   Categoria.findOne({ _id: req.body.id }).then((categoria) => {
-    var erros = [];
-    if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
-      erros.push({ texto: "Nome Invalido" });
-    }
-    if (!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null) {
-      erros.push({ texto: "Slug Invalido" });
-    }
-    if (req.body.nome.length < 2) {
-      erros.push({ texto: "Nome da categoria e muito pequeno" });
-    }
-    if (erros.length > 0) {
-      res.render("admin/viewCategoria/editcategorias", { categoria: categoria, erros: erros });
-    } else {
       categoria.nome = req.body.nome;
       categoria.slug = req.body.slug;
       categoria.save().then(() => {
@@ -101,7 +88,7 @@ rota.post("/categorias/edit", (req, res) => {
         req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
         res.redirect("/admin/categorias");
       });
-    }
+ 
   }).catch((err) => {
     req.flash(("error_msg", "Houve um erro ao editar a categoria"));
     res.redirect("/admin/categorias");
