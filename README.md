@@ -10,24 +10,28 @@
 ```
 ## Execução
 
-- Ativar o servidor do mongo com o comando "mongod" sem aspas e deixar aberto a tela do cmd.
+```
+* Ative o servidor do Mongo digitando " mongod " sem aspas dentro do terminal e deixe aberto.
 
-- Abrir outra janela do cmd.
+* Em outra terminal digite " nodemon app.js " sem aspas
+```
 
-- Ativar o servidor do projeto com o nodemon com o comando "nodemon app.js" sem as aspas.
+## Vizualizar Página
+```
+* Entrar no sistema com o link "http://localhost:8089"
+```
 
--Digite na Url:
+## Adições dentro da página
 
-- Entrar no sistema com o link "http://localhost:8089"
+```
+* http://localhost:8089/admin/categorias/add -> adiciona categorias de noticias
 
--Comandos:
+* http://localhost:8089/admin/pontocoleta/add -> adiciona um ponto de coleta
 
-http://localhost:8089/admin/categorias/add -> adiciona categorias de noticias
+* http://localhost:8089/admin/produto/add -> adiciona um produto
 
-http://localhost:8089/admin/pontocoleta/add -> adiciona um ponto de coleta
+* http://localhost:8089/admin/noticias/add -> adiciona uma noticia
 
-http://localhost:8089/admin/produto/add -> adiciona um produto
+* http://localhost:8089/admin/tutoriais/add -> adiciona um novo tutorial
 
-http://localhost:8089/admin/noticias/add -> adiciona uma noticia
-
-http://localhost:8089/admin/tutoriais/add -> adiciona um novo tutorial
+```
