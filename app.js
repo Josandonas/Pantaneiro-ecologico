@@ -8,7 +8,6 @@ const path = require("path");
 const mongoose = require('mongoose');
 const session = require("express-session");
 const flash = require("connect-flash");
-// const fileUpload = require("express-fileupload");
 
 require("./model/Categoria");
 const Categoria = mongoose.model("categorias");
