@@ -1,19 +1,14 @@
 
--Depois de baixar instale:
+## Instalação
+
+```
 
 - Rodar o "npm install"(Sem aspas no momento em que colar no terminal) dentro da pasta.
 
-- Instalar o express na pasta do projeto com o comando "npm install express --save" sem as aspas.
-
-- Instalar, biblioteca para tratar imagem , com o comando "npm install --save express-fileupload" sem as aspas.
-
-- Instalar pacotes adicionais para rodar a aplicação "npm audit fix"(Sem aspas no momento em que colar no terminal) .
-
-- Instalar pacotes adicionais para rodar a aplicação "npm audit"(Sem aspas no momento em que colar no terminal) .
-
 - Instalar o nodemon antes globalmente nao precisa ser dentro  da pasta com o comando "npm install -g nodemon"  sem as aspas.
 
--Ative:
+```
+## Execução
 
 - Ativar o servidor do mongo com o comando "mongod" sem aspas e deixar aberto a tela do cmd.
 
