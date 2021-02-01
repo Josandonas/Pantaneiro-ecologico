@@ -9,21 +9,20 @@
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
-    "handlebars": "^4.5.3",
     "mongoose": "^5.7.12"
   },
   "devDependencies": {
     "connect-flash": "^0.1.1",
-    "express-fileupload": "^1.1.6",
     "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
-    "handlebars": "^4.5.3",
+    "handlebars": "^4.7.6",
     "mongoose": "^5.7.12"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
