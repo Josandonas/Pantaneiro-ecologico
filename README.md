@@ -1,13 +1,12 @@
 
 ## Instalação
 
-```
+Logo após clonar o repositório:
 
-- Rodar o "npm install"(Sem aspas no momento em que colar no terminal) dentro da pasta.
+* " npm install " (copie cole sem as aspas).
 
-- Instalar o nodemon antes globalmente nao precisa ser dentro  da pasta com o comando "npm install -g nodemon"  sem as aspas.
+* Instale o nodemon globalmente com o comando "npm install -g nodemon" (copie cole sem as aspas).
 
-```
 ## Execução
 
 ```
